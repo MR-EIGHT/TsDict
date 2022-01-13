@@ -23,9 +23,14 @@ class TsDict:
     def put(self, key, value):
         index = self.__find_index__(key)
         if len(self.list[index]) != 0:
+            for i in range(0, len(self.list[index])):
+                if self.list[index][i][0] == key:
+                    self.list[index][i] = tuple([self.list[index][i][0], value])
+                    return
             self.list[index].append([tuple([key, value])])
         else:
             self.list[index] = [tuple([key, value])]
+        self.occupied += 1
 
     # def __repr__(self):
     #     return []
