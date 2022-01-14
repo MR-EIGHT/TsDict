@@ -11,6 +11,7 @@ class TsDict:
         self.list = [list() for _ in range(10)]
 
     def __find_index__(self, key):
+
         match str(type(key)):
 
             case "<class 'str'>":
@@ -58,6 +59,17 @@ class TsDict:
         self.occupied += 1
         if len(self.list[index]) > self.max_bucket_length:
             self.max_bucket_length = len(self.list[index])
+
+    def get(self, key):
+        index = self.__find_index__(key)
+        if len(self.list[index]) == 0:
+            return None
+        elif self.list[index][0] == key:
+            return self.list[index][1]
+        else:
+            for i in self.list[index]:
+                if i[0] == key:
+                    return i[1]
 
     def __repr__(self):
         out = '{'
