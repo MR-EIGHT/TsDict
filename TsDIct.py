@@ -80,6 +80,19 @@ class TsDict:
                         key_set.add(self.list[i][j][0])
         return key_set
 
+    def remove(self, key):
+        index = self.__find_index__(key)
+        if len(self.list[index]) == 0:
+            return None
+        elif self.list[index][0] == key:
+            del self.list[index]
+        else:
+            for i in range(0, len(self.list[index])):
+                if self.list[index][i][0] == key:
+                    del self.list[index][i]
+                    break
+        self.occupied -= 1
+
     def __repr__(self):
         out = '{'
         for i in range(0, len(self.list)):
