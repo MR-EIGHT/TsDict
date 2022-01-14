@@ -71,6 +71,15 @@ class TsDict:
                 if i[0] == key:
                     return i[1]
 
+    def key_set(self):
+        key_set = set()
+        for i in range(0, len(self.list)):
+            if len(self.list[i]) > 0:
+                for j in range(0, len(self.list[i])):
+                    if len(self.list[i][j]) > 0:
+                        key_set.add(self.list[i][j][0])
+        return key_set
+
     def __repr__(self):
         out = '{'
         for i in range(0, len(self.list)):
