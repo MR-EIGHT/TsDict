@@ -10,8 +10,15 @@ if __name__ == '__main__':
     di.put(4, 3)
     di.put('2', 3)
     di.put('alice', 3)
+    print(di.get('alice'))
+    print(di.get('2'))
+    print(di.get('8'))
+    print(di.get(8))
+    print(di.get(1))
 
     di.put(1, ['ali', 'jason'])
+    print(di.get(1))
+
     print(di.list)
     print(di)
     a = dict()
