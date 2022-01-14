@@ -18,9 +18,19 @@ if __name__ == '__main__':
 
     di.put(1, ['ali', 'jason'])
     print(di.get(1))
+    print(di.key_set())
 
     print(di.list)
     print(di)
+    print(di.remove('alice'))
+    print(di.list)
+    print(di)
+
+
+
+
+
+
     a = dict()
     a['1'] = 2
     print(a)
