@@ -9,6 +9,19 @@ class TsDict:
         self.list = [list() for _ in range(10)]
         self.lock = threading.Lock()
 
+    def put(self, key, value):
+        with self.lock:
+            self.occupied += 1
+            self.__put__(key, value)
+
+    def remove(self, key):
+        with self.lock:
+            self.__remove__(key)
+
+    def get(self, key):
+        with self.lock:
+            return self.__get__(key)
+
     def __find_index__(self, key):
 
         match str(type(key)):
@@ -46,29 +59,27 @@ class TsDict:
             if len(temp[i]) > 0:
                 for j in range(0, len(temp[i])):
                     if len(temp[i][j]) > 0:
-                        self.put(temp[i][j][0], temp[i][j][1])
+                        self.__put__(temp[i][j][0], temp[i][j][1])
 
-    def put(self, key, value):
+    def __put__(self, key, value):
         # or self.max_bucket_length >= 1
-        with self.lock:
 
-            index = self.__find_index__(key)
-            if len(self.list[index]) != 0:
-                for i in range(0, len(self.list[index])):
-                    if self.list[index][i][0] == key:
-                        self.list[index][i] = tuple([self.list[index][i][0], value])
-                        return
-                self.list[index].append(tuple([key, value]))
-            else:
-                self.list[index] = [tuple([key, value])]
-            self.occupied += 1
-            if len(self.list[index]) > self.max_bucket_length:
-                self.max_bucket_length = len(self.list[index])
+        index = self.__find_index__(key)
+        if len(self.list[index]) != 0:
+            for i in range(0, len(self.list[index])):
+                if self.list[index][i][0] == key:
+                    self.list[index][i] = tuple([self.list[index][i][0], value])
+                    return
+            self.list[index].append(tuple([key, value]))
+        else:
+            self.list[index] = [tuple([key, value])]
+        if len(self.list[index]) > self.max_bucket_length:
+            self.max_bucket_length = len(self.list[index])
 
-            if 0.8 * len(self.list) <= self.occupied:
-                self.__rehash__()
+        if 0.8 * len(self.list) <= self.occupied:
+            self.__rehash__()
 
-    def get(self, key):
+    def __get__(self, key):
         index = self.__find_index__(key)
         if len(self.list[index]) == 0:
             return None
@@ -89,7 +100,7 @@ class TsDict:
                             key_set.add(self.list[i][j][0])
             return key_set
 
-    def remove(self, key):
+    def __remove__(self, key):
         with self.lock:
             index = self.__find_index__(key)
             if len(self.list[index]) == 0:

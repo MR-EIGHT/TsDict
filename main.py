@@ -49,4 +49,8 @@ if __name__ == '__main__':
         for i in range(0, len(keys)):
             executor.submit(dictionary.put, keys[i], values[i])
             print(keys[i] + ' : ' + values[i])
-        print(dictionary.occupied)
+
+    print(dictionary.get('همزاد'))
+    print(dictionary.occupied)
+    print(len(keys))
+    print(len(values))
