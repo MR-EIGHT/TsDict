@@ -1,7 +1,10 @@
+import time
+
 import TsDIct
 import concurrent.futures
 
 if __name__ == '__main__':
+
     FaEn_dictionary = TsDIct.TsDict()
     EnFa_dictionary = TsDIct.TsDict()
 
@@ -12,12 +15,15 @@ if __name__ == '__main__':
     persian_words = stripped[1::2]
     english_words = stripped[0::2]
 
+    t1 = time.perf_counter()
     with concurrent.futures.ThreadPoolExecutor(25) as executor:
         executor.map(FaEn_dictionary.put, persian_words[:], english_words[:])
         executor.map(EnFa_dictionary.put, english_words[:], persian_words[:])
+    t2 = time.perf_counter()
 
-        # for i in range(35537, len(persian_words)):
-        #     executor.submit(dictionary.put, persian_words[i], english_words[i])
+    print(f"Dictionary populating time: {t2 - t1}")
+    # for i in range(35537, len(persian_words)):
+    #     executor.submit(dictionary.put, persian_words[i], english_words[i])
 
     print(FaEn_dictionary.get('همزاد'))
     print(FaEn_dictionary.get('کوشش کردن'))
@@ -34,3 +40,13 @@ if __name__ == '__main__':
 
     print(len(persian_words))
     print(len(english_words))
+
+    t1 = time.perf_counter()
+
+    my_dict = TsDIct.TsDict()
+    for i in range(0, len(persian_words)):
+        my_dict.put(persian_words[i], english_words[i])
+
+    t2 = time.perf_counter()
+
+    print(f"Dictionary populating time: {t2 - t1}")
