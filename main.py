@@ -50,3 +50,6 @@ if __name__ == '__main__':
     t2 = time.perf_counter()
     print(my_dict.occupied)
     print(f"Dictionary populating time: {t2 - t1}")
+
+    FaEn_dictionary.remove('همزاد')
+    print(FaEn_dictionary.get('همزاد'))

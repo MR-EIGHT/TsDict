@@ -102,18 +102,17 @@ class TsDict:
             return key_set
 
     def __remove__(self, key):
-        with self.lock:
-            index = self.__find_index__(key)
-            if len(self.list[index]) == 0:
-                return None
-            elif self.list[index][0] == key:
-                del self.list[index]
-            else:
-                for i in range(0, len(self.list[index])):
-                    if self.list[index][i][0] == key:
-                        del self.list[index][i]
-                        break
-            self.occupied -= 1
+        index = self.__find_index__(key)
+        if len(self.list[index]) == 0:
+            return None
+        elif self.list[index][0] == key:
+            del self.list[index]
+        else:
+            for i in range(0, len(self.list[index])):
+                if self.list[index][i][0] == key:
+                    del self.list[index][i]
+                    break
+        self.occupied -= 1
 
     def __repr__(self):
         out = '{'
