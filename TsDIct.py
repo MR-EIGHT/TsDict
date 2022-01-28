@@ -6,7 +6,7 @@ class TsDict:
     def __init__(self):
         self.occupied = 0
         self.max_bucket_length = 0
-        self.list = [list() for _ in range(100)]
+        self.list = [list() for _ in range(10)]
         self.lock = threading.Lock()
 
     def put(self, key, value):

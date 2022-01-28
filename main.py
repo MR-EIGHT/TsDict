@@ -48,5 +48,5 @@ if __name__ == '__main__':
         my_dict.put(persian_words[i], english_words[i])
 
     t2 = time.perf_counter()
-
+    print(my_dict.occupied)
     print(f"Dictionary populating time: {t2 - t1}")
